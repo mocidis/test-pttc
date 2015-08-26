@@ -1,7 +1,7 @@
 .PHONY: all clean
 
 C_DIR := ../common
-C_SRCS := my-pjlib-utils.c ansi-utils.c
+C_SRCS := ansi-utils.c
 
 SERIAL_DIR := ../serial
 SERIAL_SRCS := pttc_uart.c serial_utils.c
@@ -11,8 +11,8 @@ MAIN_SRCS := main.c
 
 APP := myapp-pttc
 
-CFLAGS := -g $(shell pkg-config --cflags libpjproject) -I $(C_DIR)/include -I $(MAIN_DIR)/include -I $(SERIAL_DIR)/include
-LIBS := $(shell pkg-config --libs libpjproject)
+CFLAGS := -g -I $(C_DIR)/include -I $(MAIN_DIR)/include -I $(SERIAL_DIR)/include
+LIBS := -lpthread
 
 all: $(APP)
 
