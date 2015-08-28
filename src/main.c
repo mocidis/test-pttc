@@ -2,20 +2,20 @@
 #include "ansi-utils.h"
 
 int main(int n, char *opts[]) {
-    pthread_t thread;
-
+    serial_t serial;
+    pttc_t pttc;
     if(n < 2) {
         fprintf(stdout, "Usage: myapp-pttc <device>\n");
         exit(-1);
     }
 
-    pttc_init(NULL);
+    pttc_init(&serial, &pttc, NULL);
 
-    pttc_start(opts[1], &thread);
+    pttc_start(&serial, opts[1]);
     
     my_pause();
 
-    pttc_end(&thread);
+    pttc_end(&serial);
 
     return 0;
 }
