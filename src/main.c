@@ -1,6 +1,9 @@
 #include "pttc_uart.h"
 #include "ansi-utils.h"
-
+#include <stdio.h>
+void on_pttc_ptt(int ptt) {
+    fprintf(stdout, "PTTC - ptt is %d\n", ptt);
+}
 int main(int n, char *opts[]) {
     serial_t serial;
     pttc_t pttc;
@@ -9,7 +12,7 @@ int main(int n, char *opts[]) {
         exit(-1);
     }
 
-    pttc_init(&serial, &pttc, NULL);
+    pttc_init(&serial, &pttc, on_pttc_ptt);
 
     pttc_start(&serial, opts[1]);
     
