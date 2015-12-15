@@ -12,7 +12,14 @@ int main(int n, char *opts[]) {
         exit(-1);
     }
 
-    pttc_init(&serial, &pttc, on_pttc_ptt);
+    pj_caching_pool cp;
+    pj_pool_t *pool;
+
+    pj_init();
+    pj_caching_pool_init(&cp, NULL, 1024);
+    pool = pj_pool_create(&cp.factory, "pool", 6400, 6400, NULL);
+
+    pttc_init(&serial, &pttc, on_pttc_ptt, pool);
 
     pttc_start(&serial, opts[1]);
     

@@ -11,8 +11,9 @@ MAIN_SRCS := main.c
 
 APP := myapp-pttc
 
-CFLAGS := -g -I $(C_DIR)/include -I $(MAIN_DIR)/include -I $(SERIAL_DIR)/include
-LIBS := -lpthread
+CFLAGS:=-fms-extensions $(shell pkg-config --cflags libpjproject)
+CFLAGS+= -g -I $(C_DIR)/include -I $(MAIN_DIR)/include -I $(SERIAL_DIR)/include
+LIBS:=$(shell pkg-config --libs libpjproject) -lpthread
 
 all: $(APP)
 
